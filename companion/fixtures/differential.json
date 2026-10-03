@@ -1,0 +1,591 @@
+{
+  "fixture_version": "1.0.0",
+  "experiment_id": "two_requests_static_vs_shared",
+  "scope": "Synthetic budget-control differential only; same complete requests and fixed valid context in both arms",
+  "context": {
+    "time": 0,
+    "ordering": "admit both in a,b order; then commit each admitted effect in that order",
+    "human_and_scope_prerequisites": "trusted, valid and unchanged",
+    "endpoint": "in-process successful simulation"
+  },
+  "root_grant": {
+    "schema_version": "1.0.0",
+    "identity": {
+      "grant_id": "G-root",
+      "version": 1,
+      "policy_version": "P1",
+      "configuration_version": "C1",
+      "workflow_id": "WF-research",
+      "actor_id": "agent-root",
+      "parent_grant_id": null
+    },
+    "principal": {
+      "id": "org-example"
+    },
+    "issuer": {
+      "human_id": "human-issuer",
+      "authority_ref": "synthetic:role-delegator"
+    },
+    "sponsor": {
+      "human_id": "human-sponsor",
+      "acceptance_ref": "synthetic:accepted-research",
+      "coverage_ref": "synthetic:coverage-plan",
+      "independence_attestation": {
+        "assessor_id": "human-assessor",
+        "evidence_ref": "synthetic:assurance-v1",
+        "expires_at": 100
+      }
+    },
+    "decision_scope": {
+      "decision_class": "corpus-analysis",
+      "book_rung": 3,
+      "human_reserved_operations": [
+        "change_bounds"
+      ]
+    },
+    "intent": {
+      "version": "I1",
+      "outcome": "Produce an internal synthesis from the approved corpus",
+      "context": "Synthetic sandbox research; no real persons, accounts, or services",
+      "constraints": "Use the approved corpus only; no external transmission",
+      "tolerances": "At most 70 units per effect and 100 shared units in accounting epoch E1",
+      "the_line": "Do not widen corpus, recipients, purpose, or budget; ask the human issuer"
+    },
+    "pinned_predicates": {
+      "language": "edf-exact-v1",
+      "version": "1",
+      "predicates": [
+        {
+          "field": "context.corpus_allowed",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "alignment_attestation": {
+        "assessor_id": "human-assessor",
+        "evidence_ref": "synthetic:assurance-v1",
+        "expires_at": 100,
+        "status": "aligned"
+      }
+    },
+    "permitted_effects": {
+      "operations": [
+        "analyze"
+      ],
+      "resources": [
+        "approved-corpus"
+      ],
+      "recipients": [
+        "internal"
+      ],
+      "data_classes": [
+        "synthetic"
+      ],
+      "environments": [
+        "sandbox"
+      ],
+      "purposes": [
+        "research-synthesis"
+      ]
+    },
+    "exposure": {
+      "per_effect_units": 70,
+      "ledgers": [
+        {
+          "ledger_id": "L-shared",
+          "limit_units": 100,
+          "aggregation_scope": "WF-research",
+          "epoch": "E1"
+        }
+      ]
+    },
+    "approvals": {
+      "required": false,
+      "approver_ids": [
+        "human-issuer",
+        "human-reviewer"
+      ],
+      "separation_from_issuer": false
+    },
+    "review_contract": {
+      "reviewer_ids": [
+        "human-reviewer"
+      ],
+      "decision_timing": "within_bounds",
+      "cadence_ticks": 20,
+      "sampling": {
+        "method": "all",
+        "every_n": 1
+      },
+      "aggregate_checks": [
+        "exposure_total",
+        "failure_count"
+      ],
+      "lapse_action": "suspend",
+      "evidence_required": true
+    },
+    "recovery": {
+      "permitted_reversibility": [
+        "restorable",
+        "irreversible"
+      ],
+      "requires_human_key_for_irreversible": true,
+      "capability_ref": "synthetic:stop-and-restore",
+      "attestation": {
+        "assessor_id": "human-assessor",
+        "evidence_ref": "synthetic:assurance-v1",
+        "expires_at": 100
+      }
+    },
+    "lifecycle": {
+      "not_before": 0,
+      "expires_at": 100,
+      "initial_state": "active",
+      "resume_requires_human": true
+    },
+    "derivation": {
+      "allowed_actor_ids": [
+        "child-a",
+        "child-b"
+      ],
+      "allowed_sponsor_ids": [
+        "human-sponsor"
+      ],
+      "max_depth": 2
+    }
+  },
+  "child_grants": [
+    {
+      "schema_version": "1.0.0",
+      "identity": {
+        "grant_id": "G-a",
+        "version": 1,
+        "policy_version": "P1",
+        "configuration_version": "C1",
+        "workflow_id": "WF-research",
+        "actor_id": "child-a",
+        "parent_grant_id": "G-root"
+      },
+      "principal": {
+        "id": "org-example"
+      },
+      "issuer": {
+        "human_id": "human-issuer",
+        "authority_ref": "synthetic:role-delegator"
+      },
+      "sponsor": {
+        "human_id": "human-sponsor",
+        "acceptance_ref": "synthetic:accepted-research",
+        "coverage_ref": "synthetic:coverage-plan",
+        "independence_attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100
+        }
+      },
+      "decision_scope": {
+        "decision_class": "corpus-analysis",
+        "book_rung": 3,
+        "human_reserved_operations": [
+          "change_bounds"
+        ]
+      },
+      "intent": {
+        "version": "I1",
+        "outcome": "Produce an internal synthesis from the approved corpus",
+        "context": "Synthetic sandbox research; no real persons, accounts, or services",
+        "constraints": "Use the approved corpus only; no external transmission",
+        "tolerances": "At most 70 units per effect and 100 shared units in accounting epoch E1",
+        "the_line": "Do not widen corpus, recipients, purpose, or budget; ask the human issuer"
+      },
+      "pinned_predicates": {
+        "language": "edf-exact-v1",
+        "version": "1",
+        "predicates": [
+          {
+            "field": "context.corpus_allowed",
+            "op": "eq",
+            "value": true
+          }
+        ],
+        "alignment_attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100,
+          "status": "aligned"
+        }
+      },
+      "permitted_effects": {
+        "operations": [
+          "analyze"
+        ],
+        "resources": [
+          "approved-corpus"
+        ],
+        "recipients": [
+          "internal"
+        ],
+        "data_classes": [
+          "synthetic"
+        ],
+        "environments": [
+          "sandbox"
+        ],
+        "purposes": [
+          "research-synthesis"
+        ]
+      },
+      "exposure": {
+        "per_effect_units": 70,
+        "ledgers": [
+          {
+            "ledger_id": "L-shared",
+            "limit_units": 100,
+            "aggregation_scope": "WF-research",
+            "epoch": "E1"
+          }
+        ]
+      },
+      "approvals": {
+        "required": false,
+        "approver_ids": [
+          "human-issuer",
+          "human-reviewer"
+        ],
+        "separation_from_issuer": false
+      },
+      "review_contract": {
+        "reviewer_ids": [
+          "human-reviewer"
+        ],
+        "decision_timing": "within_bounds",
+        "cadence_ticks": 20,
+        "sampling": {
+          "method": "all",
+          "every_n": 1
+        },
+        "aggregate_checks": [
+          "exposure_total",
+          "failure_count"
+        ],
+        "lapse_action": "suspend",
+        "evidence_required": true
+      },
+      "recovery": {
+        "permitted_reversibility": [
+          "restorable",
+          "irreversible"
+        ],
+        "requires_human_key_for_irreversible": true,
+        "capability_ref": "synthetic:stop-and-restore",
+        "attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100
+        }
+      },
+      "lifecycle": {
+        "not_before": 0,
+        "expires_at": 100,
+        "initial_state": "active",
+        "resume_requires_human": true
+      },
+      "derivation": {
+        "allowed_actor_ids": [
+          "child-a",
+          "child-b"
+        ],
+        "allowed_sponsor_ids": [
+          "human-sponsor"
+        ],
+        "max_depth": 2
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "identity": {
+        "grant_id": "G-b",
+        "version": 1,
+        "policy_version": "P1",
+        "configuration_version": "C1",
+        "workflow_id": "WF-research",
+        "actor_id": "child-b",
+        "parent_grant_id": "G-root"
+      },
+      "principal": {
+        "id": "org-example"
+      },
+      "issuer": {
+        "human_id": "human-issuer",
+        "authority_ref": "synthetic:role-delegator"
+      },
+      "sponsor": {
+        "human_id": "human-sponsor",
+        "acceptance_ref": "synthetic:accepted-research",
+        "coverage_ref": "synthetic:coverage-plan",
+        "independence_attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100
+        }
+      },
+      "decision_scope": {
+        "decision_class": "corpus-analysis",
+        "book_rung": 3,
+        "human_reserved_operations": [
+          "change_bounds"
+        ]
+      },
+      "intent": {
+        "version": "I1",
+        "outcome": "Produce an internal synthesis from the approved corpus",
+        "context": "Synthetic sandbox research; no real persons, accounts, or services",
+        "constraints": "Use the approved corpus only; no external transmission",
+        "tolerances": "At most 70 units per effect and 100 shared units in accounting epoch E1",
+        "the_line": "Do not widen corpus, recipients, purpose, or budget; ask the human issuer"
+      },
+      "pinned_predicates": {
+        "language": "edf-exact-v1",
+        "version": "1",
+        "predicates": [
+          {
+            "field": "context.corpus_allowed",
+            "op": "eq",
+            "value": true
+          }
+        ],
+        "alignment_attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100,
+          "status": "aligned"
+        }
+      },
+      "permitted_effects": {
+        "operations": [
+          "analyze"
+        ],
+        "resources": [
+          "approved-corpus"
+        ],
+        "recipients": [
+          "internal"
+        ],
+        "data_classes": [
+          "synthetic"
+        ],
+        "environments": [
+          "sandbox"
+        ],
+        "purposes": [
+          "research-synthesis"
+        ]
+      },
+      "exposure": {
+        "per_effect_units": 70,
+        "ledgers": [
+          {
+            "ledger_id": "L-shared",
+            "limit_units": 100,
+            "aggregation_scope": "WF-research",
+            "epoch": "E1"
+          }
+        ]
+      },
+      "approvals": {
+        "required": false,
+        "approver_ids": [
+          "human-issuer",
+          "human-reviewer"
+        ],
+        "separation_from_issuer": false
+      },
+      "review_contract": {
+        "reviewer_ids": [
+          "human-reviewer"
+        ],
+        "decision_timing": "within_bounds",
+        "cadence_ticks": 20,
+        "sampling": {
+          "method": "all",
+          "every_n": 1
+        },
+        "aggregate_checks": [
+          "exposure_total",
+          "failure_count"
+        ],
+        "lapse_action": "suspend",
+        "evidence_required": true
+      },
+      "recovery": {
+        "permitted_reversibility": [
+          "restorable",
+          "irreversible"
+        ],
+        "requires_human_key_for_irreversible": true,
+        "capability_ref": "synthetic:stop-and-restore",
+        "attestation": {
+          "assessor_id": "human-assessor",
+          "evidence_ref": "synthetic:assurance-v1",
+          "expires_at": 100
+        }
+      },
+      "lifecycle": {
+        "not_before": 0,
+        "expires_at": 100,
+        "initial_state": "active",
+        "resume_requires_human": true
+      },
+      "derivation": {
+        "allowed_actor_ids": [
+          "child-a",
+          "child-b"
+        ],
+        "allowed_sponsor_ids": [
+          "human-sponsor"
+        ],
+        "max_depth": 2
+      }
+    }
+  ],
+  "requests": [
+    {
+      "effect_id": "E-a",
+      "decision_id": "D-E-a",
+      "actor_id": "child-a",
+      "grant_id": "G-a",
+      "grant_version": 1,
+      "policy_version": "P1",
+      "configuration_version": "C1",
+      "decision_class": "corpus-analysis",
+      "purpose": "research-synthesis",
+      "operation": "analyze",
+      "resource": "approved-corpus",
+      "recipient": "internal",
+      "data_class": "synthetic",
+      "environment": "sandbox",
+      "units": 60,
+      "payload": {
+        "query": "Summarize licensing terms"
+      },
+      "context": {
+        "corpus_allowed": true
+      },
+      "reversibility": "restorable",
+      "approval_id": null
+    },
+    {
+      "effect_id": "E-b",
+      "decision_id": "D-E-b",
+      "actor_id": "child-b",
+      "grant_id": "G-b",
+      "grant_version": 1,
+      "policy_version": "P1",
+      "configuration_version": "C1",
+      "decision_class": "corpus-analysis",
+      "purpose": "research-synthesis",
+      "operation": "analyze",
+      "resource": "approved-corpus",
+      "recipient": "internal",
+      "data_class": "synthetic",
+      "environment": "sandbox",
+      "units": 60,
+      "payload": {
+        "query": "Summarize licensing terms"
+      },
+      "context": {
+        "corpus_allowed": true
+      },
+      "reversibility": "restorable",
+      "approval_id": null
+    }
+  ],
+  "policies": {
+    "static": {
+      "name": "static permissions plus per-call cap only",
+      "allowed_actors_and_grants": {
+        "child-a": "G-a",
+        "child-b": "G-b"
+      },
+      "grant_version": 1,
+      "policy_version": "P1",
+      "configuration_version": "C1",
+      "decision_class": "corpus-analysis",
+      "permitted_effects": {
+        "operations": [
+          "analyze"
+        ],
+        "resources": [
+          "approved-corpus"
+        ],
+        "recipients": [
+          "internal"
+        ],
+        "data_classes": [
+          "synthetic"
+        ],
+        "environments": [
+          "sandbox"
+        ],
+        "purposes": [
+          "research-synthesis"
+        ]
+      },
+      "required_context": {
+        "corpus_allowed": true
+      },
+      "per_effect_units": 70,
+      "cumulative_control": "none"
+    },
+    "shared": {
+      "name": "same permitted effects and per-call cap, with shared workflow ledger",
+      "per_effect_units": 70,
+      "shared_ledger_id": "L-shared",
+      "shared_limit_units": 100,
+      "aggregation_scope": "WF-research",
+      "epoch": "E1"
+    }
+  },
+  "expected": {
+    "static": {
+      "admissions": [
+        {
+          "effect_id": "E-a",
+          "outcome": "allow",
+          "rule": null
+        },
+        {
+          "effect_id": "E-b",
+          "outcome": "allow",
+          "rule": null
+        }
+      ],
+      "committed_effect_ids": [
+        "E-a",
+        "E-b"
+      ],
+      "committed_units": 120,
+      "reservation_ledger_present": false
+    },
+    "shared": {
+      "admissions": [
+        {
+          "effect_id": "E-a",
+          "outcome": "allow",
+          "rule": null
+        },
+        {
+          "effect_id": "E-b",
+          "outcome": "deny",
+          "rule": "R5"
+        }
+      ],
+      "committed_effect_ids": [
+        "E-a"
+      ],
+      "committed_units": 60,
+      "reservation_ledger_present": true,
+      "final_reserved_units": 0
+    }
+  }
+}

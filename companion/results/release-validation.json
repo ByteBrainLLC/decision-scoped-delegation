@@ -1,0 +1,16 @@
+{
+  "artifact_version": "1.0.2",
+  "predecessor_version": "1.0.1",
+  "python": "3.12.14",
+  "jsonschema": "4.26.0",
+  "original_scenarios": 44,
+  "original_transitions": 98,
+  "unittest_methods": 23,
+  "differential_policy_arms": 2,
+  "differential_transitions": 7,
+  "decision_code_unchanged_except_comments_and_report_version": true,
+  "grant_schema_and_fixture_bytes_unchanged": true,
+  "result_semantics_unchanged_except_report_version": true,
+  "official_apache_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "citation_check": "YAML parse and selected field checks passed; full CFF schema validation not performed"
+}

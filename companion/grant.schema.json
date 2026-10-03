@@ -1,0 +1,637 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "grant_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configuration_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workflow_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_grant_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "grant_id",
+        "version",
+        "policy_version",
+        "configuration_version",
+        "workflow_id",
+        "actor_id",
+        "parent_grant_id"
+      ],
+      "additionalProperties": false
+    },
+    "principal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "issuer": {
+      "type": "object",
+      "properties": {
+        "human_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "human_id",
+        "authority_ref"
+      ],
+      "additionalProperties": false
+    },
+    "sponsor": {
+      "type": "object",
+      "properties": {
+        "human_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acceptance_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independence_attestation": {
+          "type": "object",
+          "properties": {
+            "assessor_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expires_at": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "assessor_id",
+            "evidence_ref",
+            "expires_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "human_id",
+        "acceptance_ref",
+        "coverage_ref",
+        "independence_attestation"
+      ],
+      "additionalProperties": false
+    },
+    "decision_scope": {
+      "type": "object",
+      "properties": {
+        "decision_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "book_rung": {
+          "enum": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "human_reserved_operations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "decision_class",
+        "book_rung",
+        "human_reserved_operations"
+      ],
+      "additionalProperties": false
+    },
+    "intent": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constraints": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tolerances": {
+          "type": "string",
+          "minLength": 1
+        },
+        "the_line": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "version",
+        "outcome",
+        "context",
+        "constraints",
+        "tolerances",
+        "the_line"
+      ],
+      "additionalProperties": false
+    },
+    "pinned_predicates": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "const": "edf-exact-v1"
+        },
+        "version": {
+          "const": "1"
+        },
+        "predicates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "minLength": 1
+              },
+              "op": {
+                "enum": [
+                  "eq",
+                  "in",
+                  "lte"
+                ]
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "array"
+                ]
+              }
+            },
+            "required": [
+              "field",
+              "op",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "alignment_attestation": {
+          "type": "object",
+          "properties": {
+            "assessor_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expires_at": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "status": {
+              "enum": [
+                "aligned",
+                "mismatch",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "assessor_id",
+            "evidence_ref",
+            "expires_at",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "language",
+        "version",
+        "predicates",
+        "alignment_attestation"
+      ],
+      "additionalProperties": false
+    },
+    "permitted_effects": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "recipients": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "data_classes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "environments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "purposes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "operations",
+        "resources",
+        "recipients",
+        "data_classes",
+        "environments",
+        "purposes"
+      ],
+      "additionalProperties": false
+    },
+    "exposure": {
+      "type": "object",
+      "properties": {
+        "per_effect_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ledgers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ledger_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "limit_units": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aggregation_scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "epoch": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "ledger_id",
+              "limit_units",
+              "aggregation_scope",
+              "epoch"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "per_effect_units",
+        "ledgers"
+      ],
+      "additionalProperties": false
+    },
+    "approvals": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "approver_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "separation_from_issuer": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "required",
+        "approver_ids",
+        "separation_from_issuer"
+      ],
+      "additionalProperties": false
+    },
+    "review_contract": {
+      "type": "object",
+      "properties": {
+        "reviewer_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "decision_timing": {
+          "enum": [
+            "before_commit",
+            "within_bounds",
+            "retrospective"
+          ]
+        },
+        "cadence_ticks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sampling": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "enum": [
+                "all",
+                "every_nth"
+              ]
+            },
+            "every_n": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "method",
+            "every_n"
+          ],
+          "additionalProperties": false
+        },
+        "aggregate_checks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "exposure_total",
+              "failure_count"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "lapse_action": {
+          "const": "suspend"
+        },
+        "evidence_required": {
+          "const": true
+        }
+      },
+      "required": [
+        "reviewer_ids",
+        "decision_timing",
+        "cadence_ticks",
+        "sampling",
+        "aggregate_checks",
+        "lapse_action",
+        "evidence_required"
+      ],
+      "additionalProperties": false
+    },
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "permitted_reversibility": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "restorable",
+              "compensable",
+              "irreversible"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "requires_human_key_for_irreversible": {
+          "const": true
+        },
+        "capability_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attestation": {
+          "type": "object",
+          "properties": {
+            "assessor_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expires_at": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "assessor_id",
+            "evidence_ref",
+            "expires_at"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "permitted_reversibility",
+        "requires_human_key_for_irreversible",
+        "capability_ref",
+        "attestation"
+      ],
+      "additionalProperties": false
+    },
+    "lifecycle": {
+      "type": "object",
+      "properties": {
+        "not_before": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "expires_at": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "initial_state": {
+          "enum": [
+            "proposed",
+            "active"
+          ]
+        },
+        "resume_requires_human": {
+          "const": true
+        }
+      },
+      "required": [
+        "not_before",
+        "expires_at",
+        "initial_state",
+        "resume_requires_human"
+      ],
+      "additionalProperties": false
+    },
+    "derivation": {
+      "type": "object",
+      "properties": {
+        "allowed_actor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "allowed_sponsor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "allowed_actor_ids",
+        "allowed_sponsor_ids",
+        "max_depth"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "identity",
+    "principal",
+    "issuer",
+    "sponsor",
+    "decision_scope",
+    "intent",
+    "pinned_predicates",
+    "permitted_effects",
+    "exposure",
+    "approvals",
+    "review_contract",
+    "recovery",
+    "lifecycle",
+    "derivation"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:edf:delegation-grant:1.0.0",
+  "title": "Synthetic delegation grant 1.0.0",
+  "description": "Proposed technical extension, not a schema reproduced from the book. Shape validation is not authorization."
+}

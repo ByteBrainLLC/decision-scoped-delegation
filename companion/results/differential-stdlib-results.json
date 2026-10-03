@@ -1,0 +1,181 @@
+{
+  "artifact_version": "1.0.2",
+  "experiment_id": "two_requests_static_vs_shared",
+  "validation_mode": "custom model shape checks (not full JSON Schema validation)",
+  "scope": "Synthetic budget-control differential only; same complete requests and fixed valid context in both arms",
+  "context": {
+    "time": 0,
+    "ordering": "admit both in a,b order; then commit each admitted effect in that order",
+    "human_and_scope_prerequisites": "trusted, valid and unchanged",
+    "endpoint": "in-process successful simulation"
+  },
+  "fixture_canonical_sha256": "e45d2375972023a1247b653d6db7cd4d78899ead2e821ba5fa0e1725c032fa91",
+  "identical_request_inputs": true,
+  "policy_arms": 2,
+  "admission_observations": 4,
+  "commit_observations": 3,
+  "observed_transitions": 7,
+  "passed": true,
+  "arms": {
+    "static": {
+      "input_sha256": "adbec61b241ac658d1e795229ba65a607dafd8c4a0f24e7d1857909b56e3dbf0",
+      "expected": {
+        "admissions": [
+          {
+            "effect_id": "E-a",
+            "outcome": "allow",
+            "rule": null
+          },
+          {
+            "effect_id": "E-b",
+            "outcome": "allow",
+            "rule": null
+          }
+        ],
+        "committed_effect_ids": [
+          "E-a",
+          "E-b"
+        ],
+        "committed_units": 120,
+        "reservation_ledger_present": false
+      },
+      "observed": {
+        "admissions": [
+          {
+            "effect_id": "E-a",
+            "outcome": "allow",
+            "rule": null
+          },
+          {
+            "effect_id": "E-b",
+            "outcome": "allow",
+            "rule": null
+          }
+        ],
+        "committed_effect_ids": [
+          "E-a",
+          "E-b"
+        ],
+        "committed_units": 120,
+        "reservation_ledger_present": false
+      },
+      "passed": true,
+      "transitions": [
+        {
+          "phase": "admit",
+          "effect_id": "E-a",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "static permissions and per-call cap satisfied; no cumulative check"
+          }
+        },
+        {
+          "phase": "admit",
+          "effect_id": "E-b",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "static permissions and per-call cap satisfied; no cumulative check"
+          }
+        },
+        {
+          "phase": "commit",
+          "effect_id": "E-a",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "simulated endpoint committed once",
+            "status": "committed"
+          }
+        },
+        {
+          "phase": "commit",
+          "effect_id": "E-b",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "simulated endpoint committed once",
+            "status": "committed"
+          }
+        }
+      ]
+    },
+    "shared": {
+      "input_sha256": "adbec61b241ac658d1e795229ba65a607dafd8c4a0f24e7d1857909b56e3dbf0",
+      "expected": {
+        "admissions": [
+          {
+            "effect_id": "E-a",
+            "outcome": "allow",
+            "rule": null
+          },
+          {
+            "effect_id": "E-b",
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        ],
+        "committed_effect_ids": [
+          "E-a"
+        ],
+        "committed_units": 60,
+        "reservation_ledger_present": true,
+        "final_reserved_units": 0
+      },
+      "observed": {
+        "admissions": [
+          {
+            "effect_id": "E-a",
+            "outcome": "allow",
+            "rule": null
+          },
+          {
+            "effect_id": "E-b",
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        ],
+        "committed_effect_ids": [
+          "E-a"
+        ],
+        "committed_units": 60,
+        "reservation_ledger_present": true,
+        "final_reserved_units": 0
+      },
+      "passed": true,
+      "transitions": [
+        {
+          "phase": "admit",
+          "effect_id": "E-a",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "reserved and intent recorded",
+            "status": "admitted"
+          }
+        },
+        {
+          "phase": "admit",
+          "effect_id": "E-b",
+          "observed": {
+            "outcome": "deny",
+            "rule": "R5",
+            "reason": "shared exposure would exceed L-shared"
+          }
+        },
+        {
+          "phase": "commit",
+          "effect_id": "E-a",
+          "observed": {
+            "outcome": "allow",
+            "rule": null,
+            "reason": "simulated endpoint committed once",
+            "status": "committed"
+          }
+        }
+      ]
+    }
+  },
+  "interpretation": "Under these specified controls and fixed valid context, a per-call cap of 70 permits both 60-unit requests (120 committed); the shared 100-unit cap denies the second at R5 (60 committed). This does not show that all static-permission designs are unsafe."
+}

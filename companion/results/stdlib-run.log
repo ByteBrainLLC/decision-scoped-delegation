@@ -1,0 +1,9 @@
+{
+  "artifact_version": "1.0.2",
+  "validation_mode": "custom model shape checks (not full JSON Schema validation)",
+  "scope": "deterministic synthetic process-local simulation; no real external effects or human study",
+  "cases": 44,
+  "passed": 44,
+  "failed": 0,
+  "asserted_transitions": 98
+}

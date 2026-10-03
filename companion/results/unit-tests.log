@@ -1,0 +1,28 @@
+test_all_predeclared_fixtures (test_monitor.MonitorTests.test_all_predeclared_fixtures) ... ok
+test_all_six_three_request_serial_orders (test_monitor.MonitorTests.test_all_six_three_request_serial_orders) ... ok
+test_approval_id_cannot_be_overwritten (test_monitor.MonitorTests.test_approval_id_cannot_be_overwritten) ... ok
+test_bad_cap_contraction_retains_recorded_overage (test_monitor.MonitorTests.test_bad_cap_contraction_retains_recorded_overage) ... ok
+test_child_ledger_conflict_is_atomic (test_monitor.MonitorTests.test_child_ledger_conflict_is_atomic) ... ok
+test_commit_without_admission_rejected (test_monitor.MonitorTests.test_commit_without_admission_rejected) ... ok
+test_every_nth_sampling_and_aggregates (test_monitor.MonitorTests.test_every_nth_sampling_and_aggregates) ... ok
+test_failed_endpoint_does_not_refund_approval (test_monitor.MonitorTests.test_failed_endpoint_does_not_refund_approval) ... ok
+test_fence_blocks_revoked_then_reactivated_queue (test_monitor.MonitorTests.test_fence_blocks_revoked_then_reactivated_queue) ... ok
+test_grant_copied_at_install (test_monitor.MonitorTests.test_grant_copied_at_install) ... ok
+test_idempotent_commit_charged_once (test_monitor.MonitorTests.test_idempotent_commit_charged_once) ... ok
+test_model_rejects_duplicate_ledger_ids (test_monitor.MonitorTests.test_model_rejects_duplicate_ledger_ids) ... ok
+test_post_install_grant_tamper_detected (test_monitor.MonitorTests.test_post_install_grant_tamper_detected) ... ok
+test_schema_rejects_absent_intent_field (test_monitor.MonitorTests.test_schema_rejects_absent_intent_field) ... ok
+test_schema_rejects_ambiguous_boolean_cost (test_monitor.MonitorTests.test_schema_rejects_ambiguous_boolean_cost) ... ok
+test_schema_rejects_machine_rung_five (test_monitor.MonitorTests.test_schema_rejects_machine_rung_five) ... ok
+test_schema_rejects_missing_lapse_rule (test_monitor.MonitorTests.test_schema_rejects_missing_lapse_rule) ... ok
+test_schema_rejects_negative_limit (test_monitor.MonitorTests.test_schema_rejects_negative_limit) ... ok
+test_schema_rejects_unknown_predicate_operator (test_monitor.MonitorTests.test_schema_rejects_unknown_predicate_operator) ... ok
+test_scope_failure_claims_nothing (test_monitor.MonitorTests.test_scope_failure_claims_nothing) ... ok
+test_sponsor_history_preserved_on_accepted_transfer (test_monitor.MonitorTests.test_sponsor_history_preserved_on_accepted_transfer) ... ok
+test_unaccepted_succession_not_installed (test_monitor.MonitorTests.test_unaccepted_succession_not_installed) ... ok
+test_unknown_endpoint_retains_approval_and_reservation (test_monitor.MonitorTests.test_unknown_endpoint_retains_approval_and_reservation) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.076s
+
+OK

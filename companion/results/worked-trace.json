@@ -1,0 +1,242 @@
+{
+  "id": "shared_children_a_first",
+  "category": "scope_and_exposure",
+  "passed": true,
+  "failures": [],
+  "expected_committed": [
+    "E-a"
+  ],
+  "observed_committed": [
+    "E-a"
+  ],
+  "transitions": [
+    {
+      "step": 1,
+      "operation": "derive",
+      "expected": {
+        "outcome": "allow",
+        "rule": null
+      },
+      "observed": {
+        "outcome": "allow",
+        "rule": null,
+        "reason": "derived restriction registered"
+      },
+      "passed": true,
+      "state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 0,
+            "limit": 100
+          }
+        },
+        "effect_states": {},
+        "grant_states": {
+          "G-root": "active",
+          "G-a": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 0,
+        "audit_count": 0
+      }
+    },
+    {
+      "step": 2,
+      "operation": "derive",
+      "expected": {
+        "outcome": "allow",
+        "rule": null
+      },
+      "observed": {
+        "outcome": "allow",
+        "rule": null,
+        "reason": "derived restriction registered"
+      },
+      "passed": true,
+      "state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 0,
+            "limit": 100
+          }
+        },
+        "effect_states": {},
+        "grant_states": {
+          "G-root": "active",
+          "G-a": "active",
+          "G-b": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 0,
+        "audit_count": 0
+      }
+    },
+    {
+      "step": 5,
+      "operation": "admit",
+      "expected": {
+        "outcome": "allow",
+        "rule": null
+      },
+      "observed": {
+        "outcome": "allow",
+        "rule": null,
+        "reason": "reserved and intent recorded",
+        "status": "admitted"
+      },
+      "passed": true,
+      "state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 60,
+            "limit": 100
+          }
+        },
+        "effect_states": {
+          "E-a": "admitted"
+        },
+        "grant_states": {
+          "G-root": "active",
+          "G-a": "active",
+          "G-b": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 1,
+        "audit_count": 1
+      }
+    },
+    {
+      "step": 6,
+      "operation": "admit",
+      "expected": {
+        "outcome": "deny",
+        "rule": "R5"
+      },
+      "observed": {
+        "outcome": "deny",
+        "rule": "R5",
+        "reason": "shared exposure would exceed L-shared"
+      },
+      "passed": true,
+      "state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 60,
+            "limit": 100
+          }
+        },
+        "effect_states": {
+          "E-a": "admitted"
+        },
+        "grant_states": {
+          "G-root": "active",
+          "G-a": "active",
+          "G-b": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 2,
+        "audit_count": 1
+      }
+    },
+    {
+      "step": 7,
+      "operation": "commit",
+      "expected": {
+        "outcome": "allow",
+        "rule": null
+      },
+      "observed": {
+        "outcome": "allow",
+        "rule": null,
+        "reason": "simulated endpoint committed once",
+        "status": "committed"
+      },
+      "passed": true,
+      "state": {
+        "time": 0,
+        "committed_effect_ids": [
+          "E-a"
+        ],
+        "ledgers": {
+          "L-shared": {
+            "committed": 60,
+            "reserved": 0,
+            "limit": 100
+          }
+        },
+        "effect_states": {
+          "E-a": "committed"
+        },
+        "grant_states": {
+          "G-root": "active",
+          "G-a": "active",
+          "G-b": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 3,
+        "audit_count": 2
+      }
+    }
+  ],
+  "final_state": {
+    "time": 0,
+    "committed_effect_ids": [
+      "E-a"
+    ],
+    "ledgers": {
+      "L-shared": {
+        "committed": 60,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    "effect_states": {
+      "E-a": "committed"
+    },
+    "grant_states": {
+      "G-root": "active",
+      "G-a": "active",
+      "G-b": "active"
+    },
+    "approval_claims": {},
+    "attempt_count": 3,
+    "audit_count": 2
+  },
+  "audit": [
+    {
+      "event": "intent_recorded",
+      "effect_id": "E-a",
+      "time": 0,
+      "payload_digest": "7c19717d65a92ed90460088a4ad5054dc54d056f9e84f5b6b351590baaa6a30a",
+      "rules": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ]
+    },
+    {
+      "event": "committed",
+      "effect_id": "E-a",
+      "time": 0,
+      "units": 60
+    }
+  ],
+  "review_log": [],
+  "note": ""
+}

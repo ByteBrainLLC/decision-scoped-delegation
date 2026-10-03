@@ -1,0 +1,26 @@
+Delegation grant reference-monitor companion
+Version 1.0.2
+
+Copyright 2026 Ed Fassio and ByteBrain LLC
+Author: Ed Fassio
+Affiliation: ByteBrain LLC
+
+This research reference implementation accompanies Ed Fassio's
+Decision-Scoped Delegation for AI Systems: A research specification and
+evaluation package grounded in The Constitution of the Frontier,
+public-facing edition 1.1, 3 October 2026.
+
+The conceptual source is Ed Fassio's The Constitution of the Frontier:
+What Must Remain True, No Matter How Intelligent the Machines Become,
+first edition, 2026. The book's decision-scoped Delegation Ladder and human
+sponsorship commitments inform the proposed technical representation.
+The grant schema, executable monitor, fixtures, and evaluation package are
+technical extensions; they are not code or a protocol reproduced from the book.
+
+Generative AI assisted preparation of the implementation, tests, and documentation.
+All reported execution results are deterministic synthetic checks, not empirical
+validation of organizational governance or production security.
+
+This NOTICE supplies attribution and provenance only. It does not modify the
+Apache License, Version 2.0. See LICENSE, LICENSING.md, CITATION.md, and
+PROVENANCE.md for the applicable scope, citations, and change history.

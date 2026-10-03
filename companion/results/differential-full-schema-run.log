@@ -1,0 +1,14 @@
+{
+  "artifact_version": "1.0.2",
+  "experiment_id": "two_requests_static_vs_shared",
+  "validation_mode": "jsonschema Draft202012Validator",
+  "scope": "Synthetic budget-control differential only; same complete requests and fixed valid context in both arms",
+  "fixture_canonical_sha256": "e45d2375972023a1247b653d6db7cd4d78899ead2e821ba5fa0e1725c032fa91",
+  "identical_request_inputs": true,
+  "policy_arms": 2,
+  "admission_observations": 4,
+  "commit_observations": 3,
+  "observed_transitions": 7,
+  "passed": true,
+  "interpretation": "Under these specified controls and fixed valid context, a per-call cap of 70 permits both 60-unit requests (120 committed); the shared 100-unit cap denies the second at R5 (60 committed). This does not show that all static-permission designs are unsafe."
+}

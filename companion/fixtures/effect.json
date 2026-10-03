@@ -1,0 +1,25 @@
+{
+  "effect_id": "E1",
+  "decision_id": "D1",
+  "actor_id": "agent-root",
+  "grant_id": "G-root",
+  "grant_version": 1,
+  "policy_version": "P1",
+  "configuration_version": "C1",
+  "decision_class": "corpus-analysis",
+  "purpose": "research-synthesis",
+  "operation": "analyze",
+  "resource": "approved-corpus",
+  "recipient": "internal",
+  "data_class": "synthetic",
+  "environment": "sandbox",
+  "units": 40,
+  "payload": {
+    "query": "Summarize licensing terms"
+  },
+  "context": {
+    "corpus_allowed": true
+  },
+  "reversibility": "restorable",
+  "approval_id": null
+}

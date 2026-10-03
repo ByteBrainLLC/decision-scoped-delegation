@@ -1,0 +1,1849 @@
+{
+  "fixture_version": "1.0.0",
+  "oracle_type": "predeclared synthetic expected outcomes",
+  "cases": [
+    {
+      "id": "positive_bounded_commit",
+      "category": "baseline",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ],
+      "expected_ledger": {
+        "committed": 40,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "positive_exact_human_choice",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "recommendation_waits_for_human",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "modified_approved_payload",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "edit_effect",
+          "id": "E1",
+          "patch": {
+            "payload.query": "Different consequential text"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "stale_policy_approval",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "state",
+          "path": "runtime.G-root.policy_version",
+          "value": "P2"
+        },
+        {
+          "op": "edit_effect",
+          "id": "E1",
+          "patch": {
+            "policy_version": "P2"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "expired_approval",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1",
+          "expires_at": 5
+        },
+        {
+          "op": "time",
+          "value": 5
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "approval_cannot_authorize_second_effect",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "same_id_changed_payload",
+      "category": "approval_drift",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "edit_effect",
+          "id": "E1",
+          "patch": {
+            "payload.query": "Changed after admission"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R4"
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "separation_of_duties",
+      "category": "approval_drift",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit",
+        "approvals.separation_from_issuer": true
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "many_small_aggregate_exceeds",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E2",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E3",
+          "patch": {
+            "units": 30
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E3",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1",
+        "E2"
+      ],
+      "expected_ledger": {
+        "committed": 80,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "shared_children_a_first",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "derive",
+          "id": "G-b",
+          "actor": "child-b",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E-a",
+          "patch": {
+            "actor_id": "child-a",
+            "grant_id": "G-a",
+            "units": 60
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E-b",
+          "patch": {
+            "actor_id": "child-b",
+            "grant_id": "G-b",
+            "units": 60
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E-a",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E-b",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E-a",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E-a"
+      ],
+      "expected_ledger": {
+        "committed": 60,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "shared_children_b_first",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "derive",
+          "id": "G-b",
+          "actor": "child-b",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E-a",
+          "patch": {
+            "actor_id": "child-a",
+            "grant_id": "G-a",
+            "units": 60
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E-b",
+          "patch": {
+            "actor_id": "child-b",
+            "grant_id": "G-b",
+            "units": 60
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E-b",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E-a",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E-b",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E-b"
+      ],
+      "expected_ledger": {
+        "committed": 60,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "child_ambient_permission_does_not_widen",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {
+            "permitted_effects.operations": [
+              "analyze",
+              "upload"
+            ],
+            "permitted_effects.recipients": [
+              "internal",
+              "outside"
+            ]
+          },
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "actor_id": "child-a",
+            "grant_id": "G-a",
+            "operation": "upload",
+            "recipient": "outside"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R2"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "positive_child_attenuation",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "actor_id": "child-a",
+            "grant_id": "G-a"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "orphaned_queued_actor",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "state",
+          "path": "sponsors.agent-root.accepted",
+          "value": false
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "positive_absence_with_accepted_coverage",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "state",
+          "path": "sponsors.agent-root.present",
+          "value": false
+        },
+        {
+          "op": "state",
+          "path": "sponsors.agent-root.coverage_valid",
+          "value": true
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "absence_without_coverage",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "state",
+          "path": "sponsors.agent-root.present",
+          "value": false
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "sponsor_cannot_halt",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "state",
+          "path": "sponsors.agent-root.can_halt",
+          "value": false
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R7"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "accepted_sponsor_successor",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "transfer",
+          "actor": "agent-root",
+          "human": "human-successor",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ],
+      "note": "Trusted registry input represents accepted transfer; no authentication or institutional validation implemented."
+    },
+    {
+      "id": "rung_3_review_lapse",
+      "category": "review_and_intent",
+      "grant_patch": {
+        "decision_scope.book_rung": 3,
+        "review_contract.decision_timing": "within_bounds"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 20
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "rung_4_review_lapse",
+      "category": "review_and_intent",
+      "grant_patch": {
+        "decision_scope.book_rung": 4,
+        "review_contract.decision_timing": "retrospective"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 20
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "positive_review_cycle",
+      "category": "review_and_intent",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 19
+        },
+        {
+          "op": "review",
+          "id": "G-root",
+          "sample_ids": [
+            "E1"
+          ],
+          "checks": [
+            "exposure_total",
+            "failure_count"
+          ],
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 21
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E2",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "id": "incomplete_review_does_not_refresh",
+      "category": "review_and_intent",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 19
+        },
+        {
+          "op": "review",
+          "id": "G-root",
+          "sample_ids": [],
+          "checks": [
+            "exposure_total",
+            "failure_count"
+          ],
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        },
+        {
+          "op": "time",
+          "value": 20
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "review_resume_requires_human",
+      "category": "review_and_intent",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "time",
+          "value": 20
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        },
+        {
+          "op": "review",
+          "id": "G-root",
+          "sample_ids": [],
+          "checks": [
+            "exposure_total",
+            "failure_count"
+          ],
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "governance",
+          "actor_type": "machine",
+          "operation": "resume",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R3"
+          }
+        },
+        {
+          "op": "governance",
+          "actor_type": "human",
+          "operation": "resume",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "intent_predicate_known_mismatch",
+      "category": "review_and_intent",
+      "grant_patch": {
+        "pinned_predicates.alignment_attestation.status": "mismatch"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R2"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "mandatory_predicate_unknown",
+      "category": "review_and_intent",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "context": {}
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R2"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "pinned_predicate_false",
+      "category": "review_and_intent",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "context": {
+              "corpus_allowed": false
+            }
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R2"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "intent_text_alone_is_not_enforced",
+      "category": "review_and_intent",
+      "grant_patch": {
+        "intent.constraints": "Never analyze any corpus"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ],
+      "note": "Intentional limitation: falsely marked aligned attestation lets inconsistent prose pass. Model cannot understand or prove prose/predicate equivalence. This is a positive admission counterexample to any stronger assurance claim."
+    },
+    {
+      "id": "adaptation_does_not_promote_authority",
+      "category": "human_bounds",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "governance",
+          "actor_type": "machine",
+          "operation": "expand",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R3"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "governing_effect_remains_human",
+      "category": "human_bounds",
+      "grant_patch": {
+        "permitted_effects.operations": [
+          "analyze",
+          "change_bounds"
+        ]
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "operation": "change_bounds"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R3"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "revoked_ancestor_blocks_queued_commit",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {},
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "actor_id": "child-a",
+            "grant_id": "G-a"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "revoke",
+          "id": "G-root",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "expiry_at_commit",
+      "category": "sponsor_and_cessation",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "time",
+          "value": 100
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "unknown_outcome_retains_exposure",
+      "category": "failure_handling",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "unknown",
+          "expected": {
+            "outcome": "escalate",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R1"
+          }
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {
+            "units": 70,
+            "approval_id": "A2"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E2",
+          "approval_id": "A2"
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 40,
+        "limit": 100
+      }
+    },
+    {
+      "id": "reconciliation_releases_only_known_unused",
+      "category": "failure_handling",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "unknown",
+          "expected": {
+            "outcome": "escalate",
+            "rule": null
+          }
+        },
+        {
+          "op": "reconcile",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "known_failure_releases_reservation",
+      "category": "failure_handling",
+      "grant_patch": {
+        "decision_scope.book_rung": 2,
+        "review_contract.decision_timing": "before_commit"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "known_failure",
+          "expected": {
+            "outcome": "deny",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "audit_unavailable_fails_closed",
+      "category": "failure_handling",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "state",
+          "path": "audit_available",
+          "value": false
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R6"
+          }
+        }
+      ],
+      "expected_committed": [],
+      "expected_ledger": {
+        "committed": 0,
+        "reserved": 0,
+        "limit": 100
+      }
+    },
+    {
+      "id": "recovery_unavailable_fails_closed",
+      "category": "failure_handling",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "state",
+          "path": "capabilities.synthetic:stop-and-restore",
+          "value": false
+        },
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {}
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R7"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "per_effect_cap",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "units": 71
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "negative_exposure_rejected",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "units": -1
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "irreversible_requires_human_key",
+      "category": "approval_drift",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "reversibility": "irreversible"
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R4"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "positive_irreversible_exact_human_key",
+      "category": "approval_drift",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "reversibility": "irreversible",
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ]
+    },
+    {
+      "id": "new_epoch_does_not_reset_shared_ledger",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {
+            "exposure.ledgers": [
+              {
+                "ledger_id": "L-shared",
+                "limit_units": 100,
+                "aggregation_scope": "WF-research",
+                "epoch": "E2"
+              }
+            ]
+          },
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "lower_cap_below_spend_stops_new_work",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "units": 60
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "commit",
+          "id": "E1",
+          "endpoint": "success",
+          "expected": {
+            "outcome": "allow",
+            "rule": null
+          }
+        },
+        {
+          "op": "state",
+          "path": "ledgers.L-shared.limit_units",
+          "value": 50
+        },
+        {
+          "op": "effect",
+          "id": "E2",
+          "patch": {
+            "units": 1
+          }
+        },
+        {
+          "op": "admit",
+          "id": "E2",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R5"
+          }
+        }
+      ],
+      "expected_committed": [
+        "E1"
+      ],
+      "note": "Trusted human cap contraction records existing overage; no claim that historical exposure met the new cap.",
+      "expected_ledger": {
+        "committed": 60,
+        "reserved": 0,
+        "limit": 50
+      }
+    },
+    {
+      "id": "rung4_irreversible_requires_new_exact_contract",
+      "category": "human_bounds",
+      "grant_patch": {
+        "decision_scope.book_rung": 4,
+        "review_contract.decision_timing": "retrospective"
+      },
+      "steps": [
+        {
+          "op": "effect",
+          "id": "E1",
+          "patch": {
+            "reversibility": "irreversible",
+            "approval_id": "A1"
+          }
+        },
+        {
+          "op": "approve",
+          "id": "E1"
+        },
+        {
+          "op": "admit",
+          "id": "E1",
+          "expected": {
+            "outcome": "escalate",
+            "rule": "R3"
+          }
+        }
+      ],
+      "expected_committed": []
+    }
+  ]
+}
