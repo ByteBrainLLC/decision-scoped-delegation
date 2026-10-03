@@ -1,0 +1,4 @@
+# Preserve the frozen companion payload and download bytes on every platform.
+companion/** -text
+*.pdf -text
+*.zip -text
