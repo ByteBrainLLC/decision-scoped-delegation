@@ -33,21 +33,35 @@ describe its packaging state; this repository is its subsequent publication.
   Consult the actual license terms for customary origin and attribution uses.
 
 Retain applicable attribution and notices and mark changes as the licenses
-require. Citation suggestions do not add license conditions. No DOI, publication
-acceptance, certification, or third-party endorsement is claimed.
+require. Citation suggestions do not add license conditions. Zenodo DOI registration
+does not imply peer review, publication acceptance, certification, or third-party endorsement.
 
 ## Suggested citations
+
+Use these **version-specific DOIs** to cite the exact releases. Prefer the paper
+when discussing the research specification; also cite the software when using the
+reference implementation, fixtures, or results.
+
+**Paper v1.1 (preferred research citation)**
 
 Fassio, Ed. 2026. *Decision-Scoped Delegation for AI Systems: A research
 specification and evaluation package grounded in The Constitution of the
 Frontier*. Public-facing edition 1.1, 3 October 2026. ByteBrain LLC.
+[https://doi.org/10.5281/zenodo.23126767](https://doi.org/10.5281/zenodo.23126767).
+[Zenodo record](https://zenodo.org/records/23126767).
+
+**Companion software v1.0.2**
 
 Fassio, Ed. 2026. *Delegation grant reference-monitor companion*. Version 1.0.2.
-ByteBrain LLC. https://github.com/ByteBrainLLC/decision-scoped-delegation
+ByteBrain LLC. [https://doi.org/10.5281/zenodo.23126782](https://doi.org/10.5281/zenodo.23126782).
+[Zenodo record](https://zenodo.org/records/23126782).
 
-See [citation metadata](companion/CITATION.cff), [citation details](companion/CITATION.md),
+See the current [citation metadata](CITATION.cff), [citation details](CITATION.md),
 and [provenance](companion/PROVENANCE.md), including AI assistance and the distinction
 between the book's concepts and this proposed technical operationalization.
+The root citation metadata identifies the software DOI and supplies the paper as
+`preferred-citation`. Citation files inside the frozen `companion/` payload record
+the pre-DOI packaging state and are preserved unchanged.
 
 ## Reproduce
 

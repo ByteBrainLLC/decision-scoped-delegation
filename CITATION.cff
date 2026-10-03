@@ -1,0 +1,32 @@
+cff-version: "1.2.0"
+message: "For the research specification, cite the preferred paper below. If you use the reference implementation, fixtures, or results, also cite companion software version 1.0.2 using its software DOI."
+type: "software"
+title: "Delegation grant reference-monitor companion"
+version: "1.0.2"
+doi: "10.5281/zenodo.23126782"
+date-released: "2026-10-03"
+authors:
+  -
+    family-names: "Fassio"
+    given-names: "Ed"
+    affiliation: "ByteBrain LLC"
+license: "Apache-2.0"
+url: "https://zenodo.org/records/23126782"
+repository-code: "https://github.com/ByteBrainLLC/decision-scoped-delegation"
+preferred-citation:
+  type: "report"
+  title: "Decision-Scoped Delegation for AI Systems: A research specification and evaluation package grounded in The Constitution of the Frontier"
+  authors:
+    -
+      family-names: "Fassio"
+      given-names: "Ed"
+      affiliation: "ByteBrain LLC"
+  version: "1.1"
+  doi: "10.5281/zenodo.23126767"
+  date-released: "2026-10-03"
+  year: 2026
+  month: 10
+  url: "https://zenodo.org/records/23126767"
+  publisher:
+    name: "Zenodo"
+  notes: "Technical research specification, not peer reviewed. Original text and tables are CC BY 4.0, subject to the paper's exclusions."
