@@ -1,6 +1,6 @@
 # Copyright 2026 Ed Fassio and ByteBrain LLC
 # SPDX-License-Identifier: Apache-2.0
-# Version 1.0.2: licensing/citation metadata updated; decision semantics unchanged.
+# Version 1.0.3: derive() requires an installed parent grant and forbids fresh ledgers (security fix).
 
 """Deterministic process-local reference-monitor simulation. No real effects.
 
@@ -114,7 +114,11 @@ class Monitor:
         """Instantiate only an accepted, human-preauthorized restriction template."""
         with self.lock:
             try:
-                validate_grant(child); p=child['identity']['parent_grant_id']; chain=self.chain(p)
+                validate_grant(child); p=child['identity']['parent_grant_id']
+                if not isinstance(p,str) or p not in self.grants: return result('deny','R1','derive requires an existing parent grant')
+                chain=self.chain(p)
+                anc_ledgers={ld['ledger_id'] for a in chain for ld in a['exposure']['ledgers']}
+                if not {ld['ledger_id'] for ld in child['exposure']['ledgers']}<=anc_ledgers: return result('deny','R1','child may not open a fresh ledger')
                 for a in chain:
                     d=a['derivation']
                     if child['identity']['actor_id'] not in d['allowed_actor_ids'] or child['sponsor']['human_id'] not in d['allowed_sponsor_ids']: return result('deny','R1','child or sponsor outside accepted template')

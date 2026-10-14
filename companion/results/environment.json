@@ -1,7 +1,7 @@
 {
-  "python": "3.12.14",
+  "python": "3.12.15",
   "jsonschema": "4.26.0",
-  "date_utc": "2026-10-03",
+  "date_utc": "2026-10-14",
   "network_calls_by_artifact": 0,
   "real_external_effects": 0
 }

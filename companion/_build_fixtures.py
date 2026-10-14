@@ -1,6 +1,6 @@
 # Copyright 2026 Ed Fassio and ByteBrain LLC
 # SPDX-License-Identifier: Apache-2.0
-# Version 1.0.2: licensing/citation metadata updated; decision semantics unchanged.
+# Version 1.0.3: derive() requires an installed parent grant and forbids fresh ledgers (security fix).
 
 """Author predeclared scenario inputs/oracles. Never imports/runs the monitor."""
 import json
@@ -84,6 +84,8 @@ cs.append(case('negative_exposure_rejected','scope_and_exposure',[add(units=-1),
 cs.append(case('irreversible_requires_human_key','approval_drift',[add(reversibility='irreversible'),admit(out='escalate',rule='R4')],[]))
 cs.append(case('positive_irreversible_exact_human_key','approval_drift',[add(reversibility='irreversible',approval_id='A1'),ap(),admit(),commit()],['E1']))
 cs.append(case('new_epoch_does_not_reset_shared_ledger','scope_and_exposure',[step('derive',expect('deny','R1'),id='G-a',actor='child-a',patch={'exposure.ledgers':[{'ledger_id':'L-shared','limit_units':100,'aggregation_scope':'WF-research','epoch':'E2'}]})],[]))
+cs.append(case('derive_without_parent_denied','scope_and_exposure',[step('derive',expect('deny','R1'),id='G-rogue',actor='child-a',patch={'identity.parent_grant_id':None,'permitted_effects.recipients':['external-world'],'exposure.per_effect_units':1000000})],[]))
+cs.append(case('derive_fresh_ledger_denied','scope_and_exposure',[step('derive',expect('deny','R1'),id='G-a',actor='child-a',patch={'exposure.ledgers':[{'ledger_id':'L-rogue','limit_units':1000000,'aggregation_scope':'WF-research','epoch':'E1'}]})],[]))
 cs.append(case('lower_cap_below_spend_stops_new_work','scope_and_exposure',[add(units=60),admit(),commit(),patch('ledgers.L-shared.limit_units',50),add('E2',units=1),admit('E2','deny','R5')],['E1'],ledger={'committed':60,'reserved':0,'limit':50},note='Trusted human cap contraction records existing overage; no claim that historical exposure met the new cap.'))
 cs.append(case('rung4_irreversible_requires_new_exact_contract','human_bounds',[add(reversibility='irreversible',approval_id='A1'),ap(),admit(out='escalate',rule='R3')],[],{'decision_scope.book_rung':4,'review_contract.decision_timing':'retrospective'}))
 for name,data in [('grant.json',grant),('effect.json',effect),('cases.json',{'fixture_version':'1.0.0','oracle_type':'predeclared synthetic expected outcomes','cases':cs})]:

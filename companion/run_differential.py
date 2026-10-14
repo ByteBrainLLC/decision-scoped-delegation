@@ -1,6 +1,6 @@
 # Copyright 2026 Ed Fassio and ByteBrain LLC
 # SPDX-License-Identifier: Apache-2.0
-# Version 1.0.2: licensing/citation metadata updated; decision semantics unchanged.
+# Version 1.0.3: derive() requires an installed parent grant and forbids fresh ledgers (security fix).
 
 """Isolated differential: specified static controls versus a shared budget.
 
@@ -78,7 +78,7 @@ def run(full_schema=False):
         expected=f['expected'][arm]
         arms[arm]={'input_sha256':digest(inputs),'expected':expected,'observed':observed,'passed':observed==expected,'transitions':transitions}
     same_inputs=arms['static']['input_sha256']==arms['shared']['input_sha256']
-    return {'artifact_version':'1.0.2','experiment_id':f['experiment_id'],'validation_mode':'jsonschema Draft202012Validator' if full_schema else 'custom model shape checks (not full JSON Schema validation)','scope':f['scope'],'context':f['context'],'fixture_canonical_sha256':digest(f),'identical_request_inputs':same_inputs,'policy_arms':len(arms),'admission_observations':sum(t['phase']=='admit' for a in arms.values() for t in a['transitions']),'commit_observations':sum(t['phase']=='commit' for a in arms.values() for t in a['transitions']),'observed_transitions':sum(len(a['transitions']) for a in arms.values()),'passed':same_inputs and all(a['passed'] for a in arms.values()),'arms':arms,'interpretation':'Under these specified controls and fixed valid context, a per-call cap of 70 permits both 60-unit requests (120 committed); the shared 100-unit cap denies the second at R5 (60 committed). This does not show that all static-permission designs are unsafe.'}
+    return {'artifact_version':'1.0.3','experiment_id':f['experiment_id'],'validation_mode':'jsonschema Draft202012Validator' if full_schema else 'custom model shape checks (not full JSON Schema validation)','scope':f['scope'],'context':f['context'],'fixture_canonical_sha256':digest(f),'identical_request_inputs':same_inputs,'policy_arms':len(arms),'admission_observations':sum(t['phase']=='admit' for a in arms.values() for t in a['transitions']),'commit_observations':sum(t['phase']=='commit' for a in arms.values() for t in a['transitions']),'observed_transitions':sum(len(a['transitions']) for a in arms.values()),'passed':same_inputs and all(a['passed'] for a in arms.values()),'arms':arms,'interpretation':'Under these specified controls and fixed valid context, a per-call cap of 70 permits both 60-unit requests (120 committed); the shared 100-unit cap denies the second at R5 (60 committed). This does not show that all static-permission designs are unsafe.'}
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--full-schema',action='store_true');ap.add_argument('--output',default='results/differential-results.json');args=ap.parse_args()

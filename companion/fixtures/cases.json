@@ -1755,6 +1755,57 @@
       "expected_committed": []
     },
     {
+      "id": "derive_without_parent_denied",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-rogue",
+          "actor": "child-a",
+          "patch": {
+            "identity.parent_grant_id": null,
+            "permitted_effects.recipients": [
+              "external-world"
+            ],
+            "exposure.per_effect_units": 1000000
+          },
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
+      "id": "derive_fresh_ledger_denied",
+      "category": "scope_and_exposure",
+      "grant_patch": {},
+      "steps": [
+        {
+          "op": "derive",
+          "id": "G-a",
+          "actor": "child-a",
+          "patch": {
+            "exposure.ledgers": [
+              {
+                "ledger_id": "L-rogue",
+                "limit_units": 1000000,
+                "aggregation_scope": "WF-research",
+                "epoch": "E1"
+              }
+            ]
+          },
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          }
+        }
+      ],
+      "expected_committed": []
+    },
+    {
       "id": "lower_cap_below_spend_stops_new_work",
       "category": "scope_and_exposure",
       "grant_patch": {},

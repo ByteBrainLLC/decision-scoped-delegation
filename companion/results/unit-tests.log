@@ -23,6 +23,6 @@ test_unaccepted_succession_not_installed (test_monitor.MonitorTests.test_unaccep
 test_unknown_endpoint_retains_approval_and_reservation (test_monitor.MonitorTests.test_unknown_endpoint_retains_approval_and_reservation) ... ok
 
 ----------------------------------------------------------------------
-Ran 23 tests in 0.076s
+Ran 23 tests in 0.117s
 
 OK

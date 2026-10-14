@@ -32,8 +32,9 @@ data, human-subject results, or estimates of production failure rates.
   companion; version-to-version changes are recorded in CHANGELOG.md
 - Fixture expected outcomes were authored before replay, independently of observed
   results; maintainer fixture builders do not import or run the monitor
-- The unchanged grant schema remains version 1.0.0; distribution version 1.0.2
-  changes licensing/citation metadata rather than schema or decision semantics
+- The unchanged grant schema remains version 1.0.0; distribution version 1.0.3
+  changes derive() admission semantics (security fix) and adds two fixtures;
+  version 1.0.2 changed licensing/citation metadata only
 - `LICENSE` is the official Apache License 2.0 text fetched from
   https://www.apache.org/licenses/LICENSE-2.0.txt on 3 October 2026;
   SHA-256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
@@ -43,6 +44,6 @@ data, human-subject results, or estimates of production failure rates.
   data are included. All actors, authority records, and effects are synthetic
 
 The previously delivered 1.0.0 and 1.0.1 archives are preserved as historical
-artifacts. Version 1.0.2 supplies the approved Apache-2.0 licensing for this
+artifacts. Version 1.0.2 supplied the approved Apache-2.0 licensing for this
 companion and cites the separately licensed CC BY 4.0 paper. No repository location,
 DOI, publication acceptance, or third-party endorsement is inferred.

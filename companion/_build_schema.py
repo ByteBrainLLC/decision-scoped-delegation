@@ -1,6 +1,6 @@
 # Copyright 2026 Ed Fassio and ByteBrain LLC
 # SPDX-License-Identifier: Apache-2.0
-# Version 1.0.2: licensing/citation metadata updated; decision semantics unchanged.
+# Version 1.0.3: derive() requires an installed parent grant and forbids fresh ledgers (security fix).
 
 """Maintainer utility: regenerate the published, self-contained schema."""
 import json

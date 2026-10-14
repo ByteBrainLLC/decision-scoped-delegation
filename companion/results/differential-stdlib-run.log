@@ -1,5 +1,5 @@
 {
-  "artifact_version": "1.0.2",
+  "artifact_version": "1.0.3",
   "experiment_id": "two_requests_static_vs_shared",
   "validation_mode": "custom model shape checks (not full JSON Schema validation)",
   "scope": "Synthetic budget-control differential only; same complete requests and fixed valid context in both arms",

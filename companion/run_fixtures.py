@@ -1,6 +1,6 @@
 # Copyright 2026 Ed Fassio and ByteBrain LLC
 # SPDX-License-Identifier: Apache-2.0
-# Version 1.0.2: licensing/citation metadata updated; decision semantics unchanged.
+# Version 1.0.3: derive() requires an installed parent grant and forbids fresh ledgers (security fix).
 
 """Replay checked-in fixtures; never generate expected outcomes from observations."""
 import argparse
@@ -58,7 +58,7 @@ def run_case(case,full_schema=False):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--full-schema',action='store_true');ap.add_argument('--output',default='results/fixture-results.json');args=ap.parse_args()
     cases=json.loads((ROOT/'fixtures/cases.json').read_text())['cases'];results=[run_case(c,args.full_schema) for c in cases]
-    report={'artifact_version':'1.0.2','validation_mode':'jsonschema Draft202012Validator' if args.full_schema else 'custom model shape checks (not full JSON Schema validation)','scope':'deterministic synthetic process-local simulation; no real external effects or human study','cases':len(results),'passed':sum(r['passed'] for r in results),'failed':sum(not r['passed'] for r in results),'asserted_transitions':sum(len(r['transitions']) for r in results),'results':results}
+    report={'artifact_version':'1.0.3','validation_mode':'jsonschema Draft202012Validator' if args.full_schema else 'custom model shape checks (not full JSON Schema validation)','scope':'deterministic synthetic process-local simulation; no real external effects or human study','cases':len(results),'passed':sum(r['passed'] for r in results),'failed':sum(not r['passed'] for r in results),'asserted_transitions':sum(len(r['transitions']) for r in results),'results':results}
     p=ROOT/args.output;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(report,indent=2)+'\n')
     trace=next(r for r in results if r['id']=='shared_children_a_first')
     (ROOT/'results/worked-trace.json').write_text(json.dumps(trace,indent=2)+'\n')

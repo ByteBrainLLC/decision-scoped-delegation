@@ -1,4 +1,4 @@
-# Delegation grant reference-monitor companion, version 1.0.2
+# Delegation grant reference-monitor companion, version 1.0.3
 
 **Research reference implementation. Synthetic simulation only.** This executable
 companion accompanies the revised Ed Fassio Delegation Ladder research
@@ -19,9 +19,9 @@ and [PROVENANCE.md](PROVENANCE.md).
 
 On 2026-10-03, Python 3.12.14 and the already-installed `jsonschema` 4.26.0 ran:
 
-- 44 predeclared scenario fixtures: 44 passed, 0 mismatches
-- 98 asserted allow/deny/escalate transitions within those scenarios
-- The same 44 scenarios in pure-standard-library mode: 44 passed
+- 46 predeclared scenario fixtures: 46 passed, 0 mismatches
+- 100 asserted allow/deny/escalate transitions within those scenarios
+- The same 46 scenarios in pure-standard-library mode: 46 passed
 - 23 `unittest` test methods: passed; one method reruns the scenario suite, so
   these counts are overlapping checks, **not independent trials**
 - One additional, separately reported differential experiment: 2 policy arms,
@@ -88,7 +88,7 @@ and [`Draft202012Validator` documentation](https://python-jsonschema.readthedocs
 - `manifest.sha256`: hashes of the frozen distributed files, excluding itself
 - `LICENSE`, `NOTICE`, `LICENSING.md`: Apache-2.0 terms, attribution, and scope
 - `CITATION.md`, `CITATION.cff`, `PROVENANCE.md`: citations and contribution boundary
-- `CHANGELOG.md`: release changes; 1.0.2 changes licensing/metadata, not decisions
+- `CHANGELOG.md`: release changes; 1.0.3 is a derive() security fix, 1.0.2 changed licensing/metadata only
 
 `_build_schema.py`, `_build_fixtures.py`, and `_build_differential_fixture.py` are
 maintainer utilities. The fixture
@@ -99,11 +99,13 @@ and rerun; their hashes are pinned in the distribution manifest.
 
 ## Versioning and exact archive identity
 
-Distribution version 1.0.2 adds the approved license, citation, and provenance
-metadata while preserving all decision behavior and fixture oracles. Version 1.0.1
+Distribution version 1.0.3 is a security fix: `derive()` now requires an installed
+parent grant and rejects child grants that open a ledger no ancestor holds, and two
+fixtures assert both denials (46 scenarios, 100 transitions). All 44 earlier
+fixture oracles are unchanged. Version 1.0.2 added the approved license, citation,
+and provenance metadata while preserving all decision behavior and fixture oracles. Version 1.0.1
 added the isolated differential experiment. The grant
-schema remains 1.0.0, and the original 44-fixture suite and 23 unittest methods are
-unchanged. The differential is not folded into or counted as another original
+schema remains 1.0.0; the 23 unittest methods are unchanged. The differential is not folded into or counted as another original
 scenario. Its two arms replay the same two requests; these are deterministic
 observations, not additional independent empirical trials.
 
@@ -144,7 +146,7 @@ real endpoint failure are not being compared in this differential.
 Both arm oracles were written in the fixture before replay and independently
 specify admissions, committed identifiers, and committed totals. The runner exits
 nonzero on an oracle mismatch. The 2 arms / 7 observed transitions are reported
-separately from the original 44 scenarios / 98 transitions and the 23 overlapping
+separately from the 46 scenarios / 100 transitions and the 23 overlapping
 unit-test methods.
 
 ## Exact primary worked example

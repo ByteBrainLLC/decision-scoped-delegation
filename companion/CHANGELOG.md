@@ -1,5 +1,24 @@
 # Changes
 
+## 1.0.3 — 14 October 2026
+
+Security fix. Found in an independent review of 1.0.2.
+
+- `derive()` accepted a child grant whose `parent_grant_id` was null or unknown.
+  The ancestor chain came back empty, so template, depth, lineage, and
+  active-ancestor checks were skipped and the child was installed as a new root
+  with its own caps and recipients. `derive()` now denies at R1 unless the parent
+  is an installed grant
+- `derive()` now enforces Table 3C's "no fresh ledger" rule: a child may draw only
+  on ledgers held by its ancestors; any other ledger is denied at R1
+- Add fixtures `derive_without_parent_denied` and `derive_fresh_ledger_denied`
+  (46 scenarios, 100 asserted transitions). Both fail on 1.0.2 and pass on 1.0.3
+- The 44 earlier fixture inputs and oracles, the differential, the grant schema
+  (1.0.0), and the 23 unittest methods are unchanged
+- Rerun all tests and both validation modes; regenerate results, logs, and manifest
+- Known gap: the fixture runner still injects `parent_grant_id='G-root'` by
+  default; fixtures that test derive edge cases must override it explicitly
+
 ## 1.0.2 — 3 October 2026
 
 - Apply Apache License 2.0 to the original companion source, schema, tests,

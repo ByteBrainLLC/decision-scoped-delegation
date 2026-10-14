@@ -6,6 +6,9 @@ recognized standard or a claim that the surrounding organization is compliant.
 ## Immutable grant and mutable state
 
 `identity` pins grant/version, workflow, actor, parent, policy, and configuration.
+A derived grant must name an installed parent (`parent_grant_id`); a missing or
+unknown parent is denied at R1 rather than installed as a new root (1.0.3). A derived
+grant may draw only on ledgers its ancestors hold ("no fresh ledger").
 `principal`, `issuer`, and `sponsor` are separate roles. `decision_scope` is one
 class/rung contract. `intent` records Outcome, Context, Constraints, Tolerances,
 and The line. `pinned_predicates` records a versioned executable restriction and

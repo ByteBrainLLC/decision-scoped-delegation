@@ -2,7 +2,7 @@
 
 ## Executable companion
 
-Fassio, Ed. 2026. *Delegation grant reference-monitor companion*. Version 1.0.2.
+Fassio, Ed. 2026. *Delegation grant reference-monitor companion*. Version 1.0.3.
 ByteBrain LLC. Apache License 2.0. Research reference implementation accompanying
 *Decision-Scoped Delegation for AI Systems*.
 

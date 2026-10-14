@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this research reference implementation, please cite this software version and the related paper listed in CITATION.md."
 type: software
 title: "Delegation grant reference-monitor companion"
-version: 1.0.2
+version: 1.0.3
 authors:
   - family-names: Fassio
     given-names: Ed

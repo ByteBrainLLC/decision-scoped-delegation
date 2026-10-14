@@ -1,11 +1,11 @@
 {
-  "artifact_version": "1.0.2",
+  "artifact_version": "1.0.3",
   "validation_mode": "custom model shape checks (not full JSON Schema validation)",
   "scope": "deterministic synthetic process-local simulation; no real external effects or human study",
-  "cases": 44,
-  "passed": 44,
+  "cases": 46,
+  "passed": 46,
   "failed": 0,
-  "asserted_transitions": 98,
+  "asserted_transitions": 100,
   "results": [
     {
       "id": "positive_bounded_commit",
@@ -5327,6 +5327,132 @@
             "outcome": "deny",
             "rule": "R1",
             "reason": "ledger cannot reset on grant creation"
+          },
+          "passed": true,
+          "state": {
+            "time": 0,
+            "committed_effect_ids": [],
+            "ledgers": {
+              "L-shared": {
+                "committed": 0,
+                "reserved": 0,
+                "limit": 100
+              }
+            },
+            "effect_states": {},
+            "grant_states": {
+              "G-root": "active"
+            },
+            "approval_claims": {},
+            "attempt_count": 0,
+            "audit_count": 0
+          }
+        }
+      ],
+      "final_state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 0,
+            "limit": 100
+          }
+        },
+        "effect_states": {},
+        "grant_states": {
+          "G-root": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 0,
+        "audit_count": 0
+      },
+      "audit": [],
+      "review_log": [],
+      "note": ""
+    },
+    {
+      "id": "derive_without_parent_denied",
+      "category": "scope_and_exposure",
+      "passed": true,
+      "failures": [],
+      "expected_committed": [],
+      "observed_committed": [],
+      "transitions": [
+        {
+          "step": 1,
+          "operation": "derive",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          },
+          "observed": {
+            "outcome": "deny",
+            "rule": "R1",
+            "reason": "derive requires an existing parent grant"
+          },
+          "passed": true,
+          "state": {
+            "time": 0,
+            "committed_effect_ids": [],
+            "ledgers": {
+              "L-shared": {
+                "committed": 0,
+                "reserved": 0,
+                "limit": 100
+              }
+            },
+            "effect_states": {},
+            "grant_states": {
+              "G-root": "active"
+            },
+            "approval_claims": {},
+            "attempt_count": 0,
+            "audit_count": 0
+          }
+        }
+      ],
+      "final_state": {
+        "time": 0,
+        "committed_effect_ids": [],
+        "ledgers": {
+          "L-shared": {
+            "committed": 0,
+            "reserved": 0,
+            "limit": 100
+          }
+        },
+        "effect_states": {},
+        "grant_states": {
+          "G-root": "active"
+        },
+        "approval_claims": {},
+        "attempt_count": 0,
+        "audit_count": 0
+      },
+      "audit": [],
+      "review_log": [],
+      "note": ""
+    },
+    {
+      "id": "derive_fresh_ledger_denied",
+      "category": "scope_and_exposure",
+      "passed": true,
+      "failures": [],
+      "expected_committed": [],
+      "observed_committed": [],
+      "transitions": [
+        {
+          "step": 1,
+          "operation": "derive",
+          "expected": {
+            "outcome": "deny",
+            "rule": "R1"
+          },
+          "observed": {
+            "outcome": "deny",
+            "rule": "R1",
+            "reason": "child may not open a fresh ledger"
           },
           "passed": true,
           "state": {
